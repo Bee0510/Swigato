@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, non_constant_identifier_names, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, unused_import
 
 import 'package:flutter/material.dart';
-import 'package:swigito/Widgets/catagory_item.dart';
+
 import 'package:swigito/Extra_Styling/dummy_data.dart';
 
 import '../catagory_item.dart';
