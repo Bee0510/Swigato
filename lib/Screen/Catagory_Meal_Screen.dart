@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:swigito/Models/Meal.dart';
 import 'package:swigito/Widgets/Single_meal_Item.dart';
 import 'Catagories_Screen.dart';
-import '../Extra_Styling/Meal_List.dart';
 import '../Models/Meal.dart';
 
 class MyCatagoryMealScreen extends StatefulWidget {
+  final List<Meal> AvailableMeal;
+  MyCatagoryMealScreen(this.AvailableMeal);
   @override
   State<MyCatagoryMealScreen> createState() => _MyCatagoryMealScreenState();
 }
@@ -24,7 +25,7 @@ class _MyCatagoryMealScreenState extends State<MyCatagoryMealScreen> {
           ModalRoute.of(context).settings.arguments as Map<String, String>;
       CatagoryTitle = routearg['title'];
       final CatagoryID = routearg['ID'];
-      displayedMeal = DUMMY_MEALS.where(((meal) {
+      displayedMeal = widget.AvailableMeal.where(((meal) {
         return meal.catagories.contains(CatagoryID);
       })).toList();
       IsLoaded = true;
