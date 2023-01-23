@@ -1,28 +1,40 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, use_key_in_widget_constructors, equal_keys_in_map, duplicate_import, unused_import
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, use_key_in_widget_constructors, equal_keys_in_map, duplicate_import, unused_import, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:swigito/Models/Meal.dart';
 import 'package:swigito/Widgets/Main_Drawer.dart';
 import '../Widgets/Main_Drawer.dart';
 import 'Catagories_Screen.dart';
 import 'Catagory_Meal_Screen.dart';
 import 'MyFavorite_Screen.dart';
+import '../Extra_Styling/Meal_List.dart';
 
 class TabScreen extends StatefulWidget {
+  final List<Meal> MyFavoriteMeal;
+  TabScreen(this.MyFavoriteMeal);
+
   @override
   State<TabScreen> createState() => TabScreenState();
 }
 
 class TabScreenState extends State<TabScreen> {
-  final List<Map<String, Object>> Page = [
-    {
-      'page': CatagoryWidget(),
-      'title': 'Catagories',
-    },
-    {
-      'page': MyFavoriteScreen(),
-      'title': 'MyFav',
-    }
-  ];
+  List<Map<String, Object>> Page = [];
+
+  @override
+  void initState() {
+    Page = [
+      {
+        'page': CatagoryWidget(),
+        'title': 'Catagories',
+      },
+      {
+        'page': MyFavoriteScreen(widget.MyFavoriteMeal),
+        'title': 'MyFav',
+      }
+    ];
+    super.initState();
+  }
+
   int SelectPageNumber = 0;
 
   void SelectPageJump(int index) {

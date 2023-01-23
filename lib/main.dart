@@ -29,6 +29,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     'vegeterian': false,
   };
   List<Meal> availableMeal = DUMMY_MEALS;
+  List<Meal> FavoriteMeal = [];
 
   void _Setfilter(Map<String, bool> setfilter) {
     setState(() {
@@ -50,6 +51,24 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         return true;
       }).toList();
     });
+  }
+
+  void toggleFavorite(String id) {
+    final existingIndex =
+        FavoriteMeal.indexWhere((element) => element.id == id);
+    if (existingIndex >= 0) {
+      setState(() {
+        FavoriteMeal.removeAt(existingIndex);
+      });
+    } else {
+      setState(() {
+        FavoriteMeal.add(DUMMY_MEALS.firstWhere((element) => element.id == id));
+      });
+    }
+  }
+
+  bool IsItFavorite(String mealID) {
+    return FavoriteMeal.any((element) => element.id == mealID);
   }
 
   @override
@@ -80,9 +99,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         canvasColor: Color.fromRGBO(225, 224, 229, 1),
       ),
       routes: {
-        '/': (context) => TabScreen(),
+        '/': (context) => TabScreen(FavoriteMeal),
         'Catagories-Meal': (ctx) => MyCatagoryMealScreen(availableMeal),
-        'MealDetailsScreen': (ctx) => MealDetailsScreen(),
+        'MealDetailsScreen': (ctx) =>
+            MealDetailsScreen(toggleFavorite, IsItFavorite),
         FilterScreen.routearg: (ctx) => FilterScreen(_filter, _Setfilter),
       },
       onGenerateRoute: (settings) {

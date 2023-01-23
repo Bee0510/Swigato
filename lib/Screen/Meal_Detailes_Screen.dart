@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import '../Extra_Styling/Meal_List.dart';
 
 class MealDetailsScreen extends StatelessWidget {
+  final Function ToggleItem;
+  final Function isItFav;
+  MealDetailsScreen(this.ToggleItem, this.isItFav);
+
   static const routearg = 'MealDetailsScreen';
 
   Widget buildSectionTitle(String text) {
@@ -85,10 +89,8 @@ class MealDetailsScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (() {
-          Navigator.of(context).pop(MealID);
-        }),
-        child: Icon(Icons.delete),
+        onPressed: () => ToggleItem(MealID),
+        child: Icon(isItFav(MealID) ? Icons.star : Icons.star_border),
       ),
     );
   }
